@@ -1,0 +1,143 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Left Right Audio Tests, Audio Checks, Tone Frequency Samples</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"
+    />
+  </head>
+
+  <body>
+    <main>
+      <h1>🎛️ Left-Right Test 🔊</h1>
+      <p>
+        Welcome to <a href="https://github.com/jwd83/">my</a> simple Left-Right
+        Sound Test tool! This quick and easy test helps you verify that your
+        speakers or headphones are functioning properly, with clear audio coming
+        from both the left and right channels.
+      </p>
+      <p>
+        Ensure your speakers or headphones are working correctly with our simple
+        sound test.
+      </p>
+      <p>
+        Click a button to hear a sound from the left, right or both speakers or
+        test all to quickly listen to all three.
+      </p>
+      <p>
+        <button onclick="playSound('sounds/left-right-both.mp3')">
+          Test All
+        </button>
+      </p>
+      <p>
+        <button onclick="playSound('sounds/left.mp3')">Left</button>
+        <button onclick="playSound('sounds/right.mp3')">Right</button>
+        <button onclick="playSound('sounds/both.mp3')">Both</button>
+      </p>
+      <h2>🎛️ Frequency Check 🔊</h2>
+      <p>
+        Test your audio equipment at a given frequency. Adjust the slider to
+        your desired frequency and click the play button to hear the sound.
+      </p>
+      <div style="display: flex; gap: 1rem">
+        <div>20 Hz</div>
+        <div style="flex: 1">
+          <input
+            type="range"
+            min="20"
+            max="20000"
+            value="440"
+            step="1"
+            oninput="setFrequency()"
+            id="input_frequency"
+          />
+        </div>
+        <div>20,000 Hz</div>
+      </div>
+
+      <button id="label_frequency" onclick="playNote(freq, 1000)">
+        Play 440 Hz
+      </button>
+
+      <h2>🎛️ Tuning Check 🔊</h2>
+
+      <p>
+        Use the following audio samples to tune your instrument. Click the play
+        button to hear the sound at a given pitch.
+      </p>
+      <h3>Middle C</h3>
+      <button onclick="playNote(261.625565, 1500)">
+        Play Middle C (261.63 Hz)
+      </button>
+      <h3>Guitar</h3>
+      <div style="display: flex; gap: 1rem; flex-direction: column">
+        <div>
+          <button onclick="playNote(82.41,  1500)">Play E2 (82.41 Hz)</button>
+        </div>
+        <div>
+          <button onclick="playNote(110,    1500)">Play A2 (110.00 Hz)</button>
+        </div>
+        <div>
+          <button onclick="playNote(146.83, 1500)">Play D3 (146.83 Hz)</button>
+        </div>
+        <div>
+          <button onclick="playNote(196,    1500)">Play G3 (196.00 Hz)</button>
+        </div>
+        <div>
+          <button onclick="playNote(246.94, 1500)">Play B3 (246.94 Hz)</button>
+        </div>
+        <div>
+          <button onclick="playNote(329.63, 1500)">Play E4 (329.63 Hz)</button>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script>
+    // create web audio api context
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    freq = 440;
+    oscs = [];
+
+    function playSound(path) {
+      var audio = new Audio(path);
+      audio.play();
+    }
+
+    function setFrequency() {
+      freq = document.getElementById("input_frequency").value;
+      document.getElementById("label_frequency").innerText =
+        "Play " + freq + " Hz";
+    }
+
+    function playNote(frequency, duration) {
+      // create Oscillator node
+      var oscillator = audioCtx.createOscillator();
+
+      // attempt to stop all previous oscillators
+      oscs.forEach(function (osc) {
+        console.log("stopping oscillator");
+        osc.stop();
+      });
+
+      // store oscillator in array to stop later
+      oscs.push(oscillator);
+
+      //   oscillator.type = "square";
+      oscillator.type = "sine";
+      oscillator.frequency.value = frequency; // value in hertz
+      oscillator.connect(audioCtx.destination);
+      oscillator.start();
+
+      setTimeout(function () {
+        oscillator.stop();
+        // remove oscillator from array
+        oscs = oscs.filter(function (osc) {
+          return osc !== oscillator;
+        });
+      }, duration);
+    }
+  </script>
+</html>
