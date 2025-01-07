@@ -26,16 +26,25 @@
         Click a button to hear a sound from the left, right or both speakers or
         test all to quickly listen to all three.
       </p>
-      <p>
+      <!-- make a centered div -->
+      <div style="display: flex; justify-content: center">
         <button onclick="playSound('sounds/left-right-both.mp3')">
           Test All
         </button>
-      </p>
-      <p>
+      </div>
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          margin-top: 1rem;
+          gap: 1rem;
+        "
+      >
         <button onclick="playSound('sounds/left.mp3')">Left</button>
-        <button onclick="playSound('sounds/right.mp3')">Right</button>
         <button onclick="playSound('sounds/both.mp3')">Both</button>
-      </p>
+        <button onclick="playSound('sounds/right.mp3')">Right</button>
+      </div>
+
       <h2>🎛️ Frequency Check 🔊</h2>
       <p>
         Test your audio equipment at a given frequency. Adjust the slider to
@@ -56,10 +65,11 @@
         </div>
         <div>20,000 Hz</div>
       </div>
-
-      <button id="label_frequency" onclick="playNote(freq, 1000)">
-        Play 440 Hz
-      </button>
+      <div style="display: flex; justify-content: center">
+        <button id="label_frequency" onclick="playNote(freq, 1000)">
+          Play 440 Hz
+        </button>
+      </div>
 
       <h2>🎛️ Tuning Check 🔊</h2>
 
