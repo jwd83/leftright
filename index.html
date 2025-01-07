@@ -46,10 +46,10 @@
         <div style="flex: 1">
           <input
             type="range"
-            min="20"
-            max="20000"
-            value="440"
-            step="1"
+            min="1"
+            max="100"
+            value="45"
+            step="0.01"
             oninput="setFrequency()"
             id="input_frequency"
           />
@@ -107,9 +107,10 @@
     }
 
     function setFrequency() {
-      freq = document.getElementById("input_frequency").value;
+      var value = document.getElementById("input_frequency").value;
+      freq = Math.pow(10, (value / 100) * 3 + 1.30103); // log10(20000) ≈ 4.30103, log10(20) ≈ 1.30103
       document.getElementById("label_frequency").innerText =
-        "Play " + freq + " Hz";
+        "Play " + Math.round(freq) + " Hz";
     }
 
     function playNote(frequency, duration) {
