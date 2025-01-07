@@ -14,22 +14,31 @@
       <h1>🎛️ Left-Right Test 🔊</h1>
       <p>
         Welcome to <a href="https://github.com/jwd83/">my</a> simple Left-Right
-        Sound Test tool! This quick and easy test helps you verify that your
+        audio testing tool! This quick and easy test helps you verify that your
         speakers or headphones are functioning properly, with clear audio coming
         from both the left and right channels.
       </p>
       <p>
-        Ensure your speakers or headphones are working correctly with our simple
+        Ensure your speakers or headphones are working correctly with my simple
         sound test.
       </p>
       <p>
-        Click a button to hear a sound from the left, right or both speakers or
-        test all to quickly listen to all three.
+        Click a button to hear a sound from the Left, Right or Both channels at
+        once or simply Test All to quickly listen to all three.
       </p>
-      <!-- make a centered div -->
       <div style="display: flex; justify-content: center">
         <button onclick="playSound('sounds/left-right-both.mp3')">
-          Test All
+          <div
+            style="
+              transform: scale(-1, 1);
+              display: inline-block;
+              margin: 0;
+              padding: 0;
+            "
+          >
+            🔊
+          </div>
+          Test All 🔊
         </button>
       </div>
       <div
@@ -40,9 +49,15 @@
           gap: 1rem;
         "
       >
-        <button onclick="playSound('sounds/left.mp3')">Left</button>
-        <button onclick="playSound('sounds/both.mp3')">Both</button>
-        <button onclick="playSound('sounds/right.mp3')">Right</button>
+        <button onclick="playSound('sounds/left.mp3')">
+          <div style="transform: scale(-1, 1); display: inline-block">🔊</div>
+          Left
+        </button>
+        <button onclick="playSound('sounds/both.mp3')">
+          <div style="transform: scale(-1, 1); display: inline-block">🔊</div>
+          Both 🔊
+        </button>
+        <button onclick="playSound('sounds/right.mp3')">Right 🔊</button>
       </div>
 
       <h2>🎛️ Frequency Check 🔊</h2>
@@ -103,6 +118,12 @@
         </div>
       </div>
     </main>
+    <footer>
+      <p>
+        Made with ❤️ by
+        <a href="https://github.com/jwd83/">Jared De Blander</a> 🧑‍💻
+      </p>
+    </footer>
   </body>
 
   <script>
